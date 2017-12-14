@@ -1,10 +1,10 @@
-import React, {Component,} from 'react';
-import {AppRegistry,Image,StyleSheet,Text,View,FlatList} from 'react-native';
+import React, { Component, } from 'react';
+import { AppRegistry, Image, StyleSheet, Text, View, FlatList } from 'react-native';
 
 var REQUEST_URL = 'https://route.showapi.com/578-1?showapi_appid=51936&showapi_test_draft=false&showapi_sign=EDCEAA2D44490A5C7C106DC064AD0918';
- 
+
 export default class HelloWorldApp extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       data: [],
@@ -22,7 +22,7 @@ export default class HelloWorldApp extends Component {
     fetch(REQUEST_URL)
       .then((response) => response.json())
       .then((responseData) => {
-        for(var i in responseData.showapi_res_body.datalist){
+        for (var i in responseData.showapi_res_body.datalist) {
           responseData.showapi_res_body.datalist[i].thumbnail = 'http://i.imgur.com/UePbdph.jpg'
         }
         console.log(responseData.showapi_res_body.datalist)
@@ -31,14 +31,14 @@ export default class HelloWorldApp extends Component {
         this.setState({
           data: this.state.data.concat(responseData.showapi_res_body.datalist),
           loaded: true,
-        });  
+        });
       });
   }
   render() {
-    if(!this.state.loaded){
+    if (!this.state.loaded) {
       return this.renderLoadingView();
-    } 
-    return(
+    }
+    return (
       <FlatList
         data={this.state.data}
         renderItem={this.renderMovie}
@@ -47,12 +47,12 @@ export default class HelloWorldApp extends Component {
     )
   }
   /**渲染列表*/
-  renderMovie(movie){
-    console.log(movie) 
+  renderMovie(movie) {
+    console.log(movie)
     return (
       <View style={styles.container}>
         <Image
-          source={{uri: movie.item.thumbnail}}
+          source={{ uri: movie.item.thumbnail }}
           style={styles.thumbnail}
         />
         <View style={styles.rightContainer}>
@@ -60,7 +60,7 @@ export default class HelloWorldApp extends Component {
           <Text style={styles.year}>{movie.item.WomIndex}</Text>
         </View>
       </View>
-      
+
     );
   }
   /**加载中*/
@@ -72,7 +72,7 @@ export default class HelloWorldApp extends Component {
         </Text>
       </View>
     );
-  } 
+  }
 }
 
 /**样式表*/
